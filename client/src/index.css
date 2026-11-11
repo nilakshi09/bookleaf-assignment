@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #F2687A;
+  --color-brand-dark: #D84258;
+  --color-brand-light: #FDF2F4;
+  --color-blush: #FFF5F6;
+  --color-blush-soft: #FCEEF1;
+  --color-blush-deep: #F7D4DC;
+
+  --color-surface: #FFFFFF;
+  --color-page: #FAF8F6;
+  --color-line: #EFE3E5;
+  --color-line-dark: #E2CCD1;
+
+  --color-ink: #1B1E26;
+  --color-ink-light: #374151;
+  --color-muted: #6B7280;
+  --color-subtle: #9CA3AF;
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-page);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-dark active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-line-dark bg-white px-4 py-2.5 text-sm font-medium text-ink-light shadow-xs transition-all hover:bg-blush-soft hover:text-ink active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none cursor-pointer;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium text-ink-light transition-colors hover:bg-blush-soft hover:text-brand-dark cursor-pointer;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface p-5 shadow-xs transition-all;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-line-dark bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition-all placeholder:text-subtle focus:border-brand focus:ring-2 focus:ring-brand/20;
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
