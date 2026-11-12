@@ -10,7 +10,7 @@ A full-stack author support and ticket triage platform built for BookLeaf Publis
 
 | | URL |
 |---|---|
-| **Frontend** | `<VERCEL_URL>` |
+| **Frontend** | https://bookleaf-assignment-one.vercel.app |
 | **Backend API** | https://bookleaf-assignment-kasg.onrender.com |
 | **Health check** | https://bookleaf-assignment-kasg.onrender.com/api/health |
 
