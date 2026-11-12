@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import { JWT_SECRET } from '../config/env.js';
 
 /**
  * Authenticates a user and issues a signed JWT.
@@ -26,7 +27,7 @@ export const login = async (req, res, next) => {
       email: user.email,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET || 'bookleaf_secret_jwt_key_2026_xyz', {
+    const token = jwt.sign(payload, JWT_SECRET, {
       expiresIn: '24h',
     });
 

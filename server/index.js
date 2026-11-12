@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { Server as SocketIOServer } from 'socket.io';
 
+import { JWT_SECRET } from './config/env.js';
 import { connectDatabase } from './config/database.js';
 import authRoutes from './routes/authRoutes.js';
 import authorRoutes from './routes/authorRoutes.js';
@@ -35,6 +36,14 @@ app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Health check endpoints (public, registered before any auth middleware)
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Initialize Socket.IO with CORS settings
 const io = new SocketIOServer(server, {
   cors: {
@@ -54,10 +63,7 @@ io.use((socket, next) => {
   }
 
   try {
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET || 'bookleaf_secret_jwt_key_2026_xyz'
-    );
+    const decoded = jwt.verify(token, JWT_SECRET);
     socket.user = {
       id: decoded.id,
       role: decoded.role,
@@ -90,11 +96,6 @@ setSocketInstance(io);
 app.use('/api/auth', authRoutes);
 app.use('/api', authorRoutes);
 app.use('/api/admin', adminRoutes);
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
 
 // Centralized error handler
 app.use(errorHandler);
